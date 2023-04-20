@@ -163,7 +163,7 @@ def ai_summary(text_to_summarize):
     response = openai.Completion.create(
         engine=model_engine,
         prompt=prompt + text_to_summarize,
-        temperature = 1,
+        temperature = 0,
         max_tokens=max_tokens
     )
 
