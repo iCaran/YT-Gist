@@ -41,7 +41,7 @@ import spacy
 import openai
 import os
 
-openai.api_key = "sk-YOUR_OPENAI_KEY"
+openai.api_key = "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"
 
 # Set the model, prompt, and parameters
 model_engine = "text-davinci-002"
@@ -150,13 +150,22 @@ def tfidf_based(msg, fraction=0.3):
 
 def ai_summary(text_to_summarize):
     # Call the API to generate the summary
-    response = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt + text_to_summarize,
-        max_tokens=1
-    )
+    try:
+        response = openai.Completion.create(
+            engine=model_engine,
+            prompt=prompt + text_to_summarize
+        )
+    except openai.error.InvalidRequestError as e:
+        if "maximum context length" in str(e):
+            # Handle the error
+            print("Reducing length...")
+            return None
+        else:
+            # Handle other OpenAI API errors
+            print("An error occurred:", e)
 
     prompt_tokens = response.get("usage").prompt_tokens
+    if prompt_tokens>3000: return None
     max_tokens = 4097 - prompt_tokens
 
     # Call the API to generate the summary
@@ -190,7 +199,14 @@ def on_submit():
     # Calling the main summarizer function
     nlp_summary = summarizer(corpus, frac)
     print(nlp_summary)
-    print(ai_summary(nlp_summary))
+    aiSummary = ai_summary(nlp_summary)
+    while not aiSummary:
+        frac -= 0.1
+        nlp_summary = summarizer(corpus, frac)
+        print(nlp_summary)
+        aiSummary = ai_summary(nlp_summary)
+    print()
+    print(aiSummary)
 
 while 1:
     on_submit()
