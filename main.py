@@ -33,13 +33,19 @@ SOFTWARE.
 # Module Imports
 import webvtt
 from sklearn.feature_extraction.text import TfidfVectorizer
-import os
 import yt_dlp
 import requests
 import pandas as pd
 import numpy as np
 import spacy
-from summarizer import summarizeText
+import openai
+import os
+
+openai.api_key = "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"
+
+# Set the model, prompt, and parameters
+model_engine = "text-davinci-002"
+prompt = "Please summarize the following text:\n\n"
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -142,6 +148,30 @@ def tfidf_based(msg, fraction=0.3):
     summary = summary.replace("\n", '')
     return summary
 
+def ai_summary(text_to_summarize):
+    # Call the API to generate the summary
+    response = openai.Completion.create(
+        engine=model_engine,
+        prompt=prompt + text_to_summarize,
+        max_tokens=1
+    )
+
+    prompt_tokens = response.get("usage").prompt_tokens
+    max_tokens = 4097 - prompt_tokens
+
+    # Call the API to generate the summary
+    response = openai.Completion.create(
+        engine=model_engine,
+        prompt=prompt + text_to_summarize,
+        temperature = 1,
+        max_tokens=max_tokens
+    )
+
+    # Extract the summary from the API response
+    summary = response.choices[0].text.strip()
+
+    return summary
+
 ##################################################################################
 
 def on_submit():
@@ -155,20 +185,9 @@ def on_submit():
     with open("corpus.txt", 'w+') as c:
         print(corpus, file=c)
     # Calling the main summarizer function
-    summary = summarizer(corpus, frac)
-    with open("summary.txt", "w") as s:
-        print(summary, file=s)
-    print(summary)
-    s = summarizeText(summary)
-    print(s)
-    try:
-        if s['sm_api_error']:
-            if s['sm_api_error'] == 3:
-                print("Video context is too short")
-    except:
-        with open("summ.txt", "w") as ss:
-            print(s['sm_api_content'], file=ss)
-        # os.remove(os.getcwd() + '/test.en.vtt')
-        os.chdir(current)
+    nlp_summary = summarizer(corpus, frac)
+    print(nlp_summary)
+    print(ai_summary(nlp_summary))
 
-on_submit()
+while 1:
+    on_submit()
