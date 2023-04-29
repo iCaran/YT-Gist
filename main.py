@@ -134,8 +134,18 @@ def tfidf_based(msg, fraction=0.3):
 
     #     indexlist=list((df.sum(axis=1)/df[df>0].count(axis=1)).sort_values(ascending=False).index)
 
+    """# Subsetting only user needed sentence
+    needed = indexlist[:num_sent]"""
+
+    # Assigning weights based on sentence position
+    weights = [1.0] * len(indexlist)
+    for i in range(len(indexlist)):
+        weights[i] *= 1.0 - (i / len(indexlist))  # penalty for beginning
+        weights[i] *= 1.0 - ((len(indexlist) - i - 1) / len(indexlist))  # penalty for end
+
     # Subsetting only user needed sentence
-    needed = indexlist[:num_sent]
+    num_sent = int(np.ceil(len(sents) * fraction))
+    needed = [indexlist[i] for i in np.argsort(-df.sum(axis=1) * weights)[:num_sent]]
 
     # Sorting the document in order
     needed.sort()
