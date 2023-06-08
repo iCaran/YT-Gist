@@ -41,7 +41,7 @@ import spacy
 import openai
 import os
 
-openai.api_key = "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"
+openai.api_key = "YOUR_OPENAI_API_KEY"
 
 # Set the model, prompt, and parameters
 model_engine = "text-davinci-002"
