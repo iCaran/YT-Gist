@@ -33,13 +33,20 @@ SOFTWARE.
 # Module Imports
 import webvtt
 from sklearn.feature_extraction.text import TfidfVectorizer
-import os
 import yt_dlp
 import requests
 import pandas as pd
 import numpy as np
 import spacy
-from summarizer import summarizeText
+from bardapi import Bard
+import os
+
+token = 'WwhnUax-lhwktorVFLEInJvkK-dax1IKRjyIkW3mDRj-fuZsaSt7OyOdeJiNiMPCI1Shdw.'
+bard = Bard(token=token)
+
+# Set the model, prompt, and parameters
+model_engine = "text-davinci-002"
+prompt = "Please summarize the following text:\n\n"
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -62,28 +69,47 @@ def get_caption(url):
     subtitles = None
     en_subtitles_url = None
 
+    print(info_dict.get('subtitles')['en'][-1]['url'])
+    title = info_dict['title']
+
+    flag=0
+
     try:
         if len(info_dict.get('subtitles')) != 0:
             subtitles = info_dict.get('subtitles')
-            for lang in subtitles:
-                if lang == 'en':
-                    en_subtitles_url = subtitles[lang][-1]['url']
-                    break
-        elif len(info_dict.get('automatic_captions')['en-orig']) != 0:
-            subtitles = info_dict.get('automatic_captions')['en-orig']
-            en_subtitles_url = subtitles[-1]['url']
-        elif len(info_dict.get('automatic_captions')['en']) != 0:
-            subtitles = info_dict.get('automatic_captions')['en']
+            try:
+                for lang in subtitles:
+                    print(lang)
+                    if lang.startswith('en'):
+                        en_subtitles_url = subtitles[lang][-1]['url']
+                        print("done")
+                        break
+                    elif len(info_dict.get('automatic_captions')['en-orig']) != 0:
+                        subtitles = info_dict.get('automatic_captions')['en-orig']
+                        en_subtitles_url = subtitles[-1]['url']
+                    elif len(info_dict.get('automatic_captions')['en']) != 0:
+                        subtitles = info_dict.get('automatic_captions')['en']
+                        en_subtitles_url = subtitles[-1]['url']
+            except:
+                try:
+                    en_subtitles_url = info_dict.get('subtitles')['en'][-1]['url']
+                except:
+                    pass
+
+        elif len(info_dict.get('automatic_captions')) != 0:
+            flag=1
+            if len(info_dict.get('automatic_captions')['en-orig']) != 0:
+                subtitles = info_dict.get('automatic_captions')['en-orig']
+                en_subtitles_url = subtitles[-1]['url']
+            elif len(info_dict.get('automatic_captions')['en']) != 0:
+                subtitles = info_dict.get('automatic_captions')['en']
+                en_subtitles_url = subtitles[-1]['url']
         else:
             print("No subtitles available")
     except:
         print("Could not extract subtitles, perhaps none is available")
 
-    if subtitles:
-        for lang in subtitles:
-            if lang == 'en':
-                en_subtitles_url = subtitles[lang][-1]['url']
-                break
+    print(en_subtitles_url)
 
     # Download the English subtitles
     if en_subtitles_url:
@@ -93,13 +119,14 @@ def get_caption(url):
             f.write(response.content)
     else:
         print('English subtitles not found')
+        return ""
     corpus = []
     for caption in webvtt.read('test.en.vtt'):
         corpus.append(caption.text)
     corpus = "".join(corpus)
     corpus = corpus.replace('\n', ' ')
 
-    return corpus
+    return corpus, title, flag
 
 
 def summarizer(text, fraction):
@@ -128,8 +155,18 @@ def tfidf_based(msg, fraction=0.3):
 
     #     indexlist=list((df.sum(axis=1)/df[df>0].count(axis=1)).sort_values(ascending=False).index)
 
+    """# Subsetting only user needed sentence
+    needed = indexlist[:num_sent]"""
+
+    # Assigning weights based on sentence position
+    weights = [1.0] * len(indexlist)
+    for i in range(len(indexlist)):
+        weights[i] *= 1.0 - (i / len(indexlist))  # penalty for beginning
+        weights[i] *= 1.0 - ((len(indexlist) - i - 1) / len(indexlist))  # penalty for end
+
     # Subsetting only user needed sentence
-    needed = indexlist[:num_sent]
+    num_sent = int(np.ceil(len(sents) * fraction))
+    needed = [indexlist[i] for i in np.argsort(-df.sum(axis=1) * weights)[:num_sent]]
 
     # Sorting the document in order
     needed.sort()
@@ -142,6 +179,23 @@ def tfidf_based(msg, fraction=0.3):
     summary = summary.replace("\n", '')
     return summary
 
+def ai_summary(text_to_summarize, title, flag):
+    # Call the API to generate the summary
+    prompt = "The following text is the extracted captions of a video, please summarise this: \n\n"
+    summary = bard.get_answer(prompt+text_to_summarize)['content']
+
+    print(flag)
+    warned=0
+
+    if flag and "Response Error" not in summary:
+        selfcheck = "Do you think the title of the video: '"+title+"' matches this ai-generated summary? Respond with 'Yes' or 'No' :- \n"+summary+""
+        response = bard.get_answer(selfcheck)['content']
+        print(response)
+        if response.startswith("No"):
+            print("\n\n ||| This summary is generated over auto-generated captions, which are in itself prone to be off by small or, quite often, large amount, from the actual context of the video. This summary therefore generated has likely compounded the errors and may be wildly off the mark! |||")
+            warned=1
+    return summary, warned
+
 ##################################################################################
 
 def on_submit():
@@ -151,24 +205,33 @@ def on_submit():
     current = os.getcwd()
     folder = current
     os.chdir(folder)
-    corpus = get_caption(url)
+    try:
+        corpus, title, flag = get_caption(url)
+    except:
+        return
     with open("corpus.txt", 'w+') as c:
         print(corpus, file=c)
     # Calling the main summarizer function
-    summary = summarizer(corpus, frac)
-    with open("summary.txt", "w") as s:
-        print(summary, file=s)
-    print(summary)
-    s = summarizeText(summary)
-    print(s)
-    try:
-        if s['sm_api_error']:
-            if s['sm_api_error'] == 3:
-                print("Video context is too short")
-    except:
-        with open("summ.txt", "w") as ss:
-            print(s['sm_api_content'], file=ss)
-        # os.remove(os.getcwd() + '/test.en.vtt')
-        os.chdir(current)
+    nlp_summary = summarizer(corpus, frac)
+    print(nlp_summary)
+    aiSummary, warned = ai_summary(nlp_summary, title, flag)
+    while ("Response Error" in aiSummary[0] or "Response Error" in aiSummary):
+        frac -= 0.1
+        print(frac)
+        if frac<0.1:
+            print("unsuccessful :(")
+            return
+        nlp_summary = summarizer(corpus, frac)
+        print(nlp_summary)
+        aiSummary = ai_summary(nlp_summary, title, flag)
+    print()
+    if not isinstance(aiSummary, tuple):
+        print(aiSummary)
+    else:
+        print(aiSummary[0])
+    if flag==1 and warned==0:
+        print("\n\n||| This summary was made using auto-generated captions, and it's likely that it's more or less inaccurate. |||")
+    print()
 
-on_submit()
+while 1:
+    on_submit()
