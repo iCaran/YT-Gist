@@ -41,7 +41,7 @@ import spacy
 from bardapi import Bard
 import os
 
-token = 'WwhnUax-lhwktorVFLEInJvkK-dax1IKRjyIkW3mDRj-fuZsaSt7OyOdeJiNiMPCI1Shdw.'
+token = 'YOUR_BARD_SESSION_KEY'
 bard = Bard(token=token)
 
 # Set the model, prompt, and parameters
