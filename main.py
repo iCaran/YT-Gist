@@ -44,10 +44,6 @@ import os
 token = 'YOUR_BARD_SESSION_KEY'
 bard = Bard(token=token)
 
-# Set the model, prompt, and parameters
-model_engine = "text-davinci-002"
-prompt = "Please summarize the following text:\n\n"
-
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -69,7 +65,7 @@ def get_caption(url):
     subtitles = None
     en_subtitles_url = None
 
-    print(info_dict.get('subtitles')['en'][-1]['url'])
+    print(info_dict.get('subtitles'))
     title = info_dict['title']
 
     flag=0
