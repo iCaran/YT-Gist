@@ -1,63 +1,37 @@
-# Youtube Summarizer
+# 🎬 Youtube Video Summarizer 
 
-A tool to summarize youtube videos, so you don't have to watch every single one of them. Especially the clickbaits.
+A cool open source tool to summarize YouTube videos so you can skip the boring parts.
 
-# Requirements:
-- Windows or Linux machine with [python](https://www.python.org/) installed
-- Google Bard authentication token, [click here](https://github.com/dsdanielpark/Bard-API#readme) and read under "Authentication"
-- Active working internet connection
+## 🚀 Quickstart
 
-# Installation:
-### For Windows, 
-   download the ```YT-Gist-Win.zip``` from the latest releases, or [click here](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Win.zip)
-### For Linux, 
-   download the ```YT-Gist-Lin.tar.gz``` from the latest releases, or [click here](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Lin.tar.gz)
+1. Make sure you have [Python](https://www.python.org/) installed.
 
-### Extract the downloaded file.
+2. Grab a Google Bard API access token (read how [here](https://github.com/dsdanielpark/Bard-API#readme), or see below), paste it inside `token.txt`.
 
-# Setup:
-- Make sure you have Python installed on your machine, check using:
-  ```
-  
-  python --version
-  ```
-- On Windows,
-  - run the ```setup.bat``` file by double clicking on it
-  
-- On Linux, 
-  - make the ```setup.sh``` file executable by the following command:
-  ```
-  chmod +x setup.sh
-  ```
-  - run the ```setup.sh``` file by the following command:
-  ```
-  
-  ./setup.sh
-  ```
-  
-## Bard Token
-> **Warning** Do not expose the `__Secure-1PSID` 
+3. Download the latest release:
+   - 💻 Windows: [YT-Gist-Win.zip](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Win.zip)  
+   - 🐧 Linux: [YT-Gist-Lin.tar.gz](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Lin.tar.gz)
+
+4. Extract and run the setup script:
+   - Windows: Double-click `setup.bat`
+   - Linux: `chmod +x setup.sh` and `./setup.sh` 
+   
+5. Summarize a video:  
+   - Option 1 (Manual):  
+     - Windows: `summ -u https://youtu.be/VIDEO_ID`  
+     - Linux: `./summ -u https://youtu.be/VIDEO_ID`  
+   - Option 2 (Interactive):  
+     - Windows: Double click `sum.bat` and enter a URL when prompted  
+     - Linux: `./sum.sh` and enter a URL when prompted
+
+6. Sit back and enjoy your video summaries!
+
+## 🔑 Getting a Bard Token
+
 1. Visit https://bard.google.com/
-2. F12 for console
-3. Session: Application → Cookies → Copy the value of  `__Secure-1PSID` cookie
-4. Paste the token as is in the ```token.txt``` file.
-  
-# Usage
-## Single use
-   - On Windows, open a Command Prompt in the extracted directory and run:
-   ```
-   
-   summ -u {url}
-   ```
-   replace {url} with the url of the video, for example
-   ```summ -u https://youtu.be/DMQWirkx5EY```
-   - On Linux, open a Terminal in the extracted directory and run:
-   ```
-   
-   ./summ -u {url}
-   ```
-   replace {url} with the url of the video, for example
-   ```summ -u ttps://youtu.be/fuWPuJZ9NcU```
-    
-## Application mode
-   - On Windows, double click on the ```sum.bat``` file and keep entering the url when prompted.
+2. Press F12 to open the dev console  
+3. Go to *Session* -> *Application* -> *Cookies*    
+4. Copy the value of the `__Secure-1PSID` cookie
+5. Paste that value into the file named `token.txt`
+
+> **Warning:** Do not share your Bard token with anyone as it provides access to your Google account.
