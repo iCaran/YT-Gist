@@ -1,6 +1,8 @@
 # 🎬 Youtube Video Summarizer 
 
-A cool open source tool to summarize YouTube videos so you can skip the boring parts.
+A tool to summarize YouTube videos so you can skip the boring parts.
+
+https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4f2da3d
 
 ## 🚀 Quickstart
 
