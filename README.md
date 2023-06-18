@@ -10,7 +10,7 @@ A cool open source tool to summarize YouTube videos so you can skip the boring p
 
 3. Download the latest release:
    - 💻 Windows: [YT-Gist-Win.zip](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Win.zip)  
-   - 🐧 Linux: [YT-Gist-Lin.tar.gz](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Lin.tar.gz)
+   - 🐧 Linux: [YT-Gist-Lin.tar.xz](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Lin.tar.xz)
 
 4. Extract and run the setup script:
    - Windows: Double-click `setup.bat`
