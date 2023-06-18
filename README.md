@@ -9,9 +9,9 @@ A tool to summarize youtube videos, so you don't have to watch every single one 
 
 # Installation:
 ### For Windows, 
-   download the ```yt_gist_win.zip``` from the latest releases, or click here
+   download the ```YT-Gist-Win.zip``` from the latest releases, or click here
 ### For Linux, 
-   download the ```yt_gist_lin.tar.gz``` from the latest releases, or click here
+   download the ```YT-Gist-Lin.tar.gz``` from the latest releases, or click here
 
 # Setup:
 - Make sure you have Python installed on your machine, check using:
