@@ -34,4 +34,4 @@ A cool open source tool to summarize YouTube videos so you can skip the boring p
 4. Copy the value of the `__Secure-1PSID` cookie
 5. Paste that value into the file named `token.txt`
 
-> **Warning:** Do not share your Bard token with anyone as it provides access to your Google account.
+> **Warning:** Do not share your Bard token with anyone!
