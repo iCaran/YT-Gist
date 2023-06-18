@@ -19,7 +19,7 @@ A cool open source tool to summarize YouTube videos so you can skip the boring p
 5. Summarize a video:  
    - Option 1 (Manual):  
      - Windows: `summ -u https://youtu.be/VIDEO_ID`  
-     - Linux: `./summ -u https://youtu.be/VIDEO_ID`  
+     - Linux: `./summ.sh -u https://youtu.be/VIDEO_ID`  
    - Option 2 (Interactive):  
      - Windows: Double click `sum.bat` and enter a URL when prompted  
      - Linux: `./sum.sh` and enter a URL when prompted
