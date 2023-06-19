@@ -37,3 +37,5 @@ https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4
 5. Paste that value into the file named `token.txt`
 
 > **Warning:** Do not share your Bard token with anyone!
+---
+### There is a [v2](https://github.com/iCaran/YT-Gist/tree/v2-gensim_based) available, which is for specific use cases, this version is for general purposes.
