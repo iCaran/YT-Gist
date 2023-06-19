@@ -2,7 +2,16 @@
 
 A (more precise but less practical) tool to summarize YouTube videos so you can skip the boring parts.
 
-https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4f2da3d
+### v1 vs v2 comparison (v1 on the left and v2 on the right)
+1. https://youtu.be/FtTGGcXizsw
+![image](https://github.com/iCaran/YT-Gist/assets/91419527/afa30961-27d6-46ed-9ee4-265f94cc4c1d)
+2. https://youtu.be/1GSq7Je32iw
+![image](https://github.com/iCaran/YT-Gist/assets/91419527/ef8e10a3-e65c-4f48-a808-0b559e564bc0)
+3. https://youtu.be/wwsgCkbogMM
+![image](https://github.com/iCaran/YT-Gist/assets/91419527/d1e60a74-5137-4ef2-a079-7cf5b99c1c3a)
+4. https://youtu.be/EhnNA4g_lTw (it even identified the background music captions)
+![image](https://github.com/iCaran/YT-Gist/assets/91419527/3a88901a-15c8-4776-9bbc-9f0241e45327)
+
 
 # v2
 - [v1](https://github.com/iCaran/YT-Gist/tree/master) uses TF-IDF based NLP summary, which is less accurate in extracting the meaning of the text, but provides shorter summaries
