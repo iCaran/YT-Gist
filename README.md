@@ -17,8 +17,8 @@ https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4
 2. Grab a Google Bard API access token (read how [here](https://github.com/dsdanielpark/Bard-API#readme), or see below), paste it inside `token.txt`.
 
 3. Download the latest release:
-   - 💻 Windows: [YT-Gist-Win.zip](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Win.zip)  
-   - 🐧 Linux: [YT-Gist-Lin.tar.xz](https://github.com/iCaran/YT-Gist/releases/download/1.0.0/YT-Gist-Lin.tar.xz)
+   - 💻 Windows: [YT-Gist-2-Win.zip](https://github.com/iCaran/YT-Gist/releases/download/2.0.0/YT-Gist-2-Win.zip)  
+   - 🐧 Linux: [YT-Gist-2-Lin.tar.xz](https://github.com/iCaran/YT-Gist/releases/download/2.0.0/YT-Gist-2-Lin.tar.xz)
 
 4. Extract and run the setup script:
    - Windows: Double-click `setup.bat`
