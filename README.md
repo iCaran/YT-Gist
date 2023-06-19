@@ -1,12 +1,18 @@
-# 🎬 Youtube Video Summarizer 
+# 🎬 Youtube Video Summarizer (v2)
 
-A tool to summarize YouTube videos so you can skip the boring parts.
+A (more precise but less practical) tool to summarize YouTube videos so you can skip the boring parts.
 
 https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4f2da3d
 
+# v2
+- [v1](https://github.com/iCaran/YT-Gist/tree/master) uses TF-IDF based NLP summary, which is less accurate in extracting the meaning of the text, but provides shorter summaries
+- v2 uses Gensim based NLP summary, which is much more accurate in extracting the meaning of the text, but provides much larger summaries
+- Overall, due to the max token size limit of any AI Chatbot (especially in free plans), larger NLP summaries as prompts will exceed the limit and will fail
+### Use this version when the video size is short and more accuracy is required
+
 ## 🚀 Quickstart
 
-1. Make sure you have [Python](https://www.python.org/) installed.
+1. Make sure you have [Python 3.8.10](https://www.python.org/downloads/release/python-3810/) only (required for proper execution of Gensim 3.8.3).
 
 2. Grab a Google Bard API access token (read how [here](https://github.com/dsdanielpark/Bard-API#readme), or see below), paste it inside `token.txt`.
 
