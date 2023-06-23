@@ -197,7 +197,7 @@ def on_submit(url):
     except:
         return
     with open("corpus.txt", 'w+') as c:
-        print(corpus, file=c)
+        print(corpus.encode('utf-8'), file=c)
         print(info_color + "Corpus generated from captions...")
     # Calling the main summarizer function
     print(info_color + "Generating NLP based summary from corpus")
