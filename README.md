@@ -19,6 +19,19 @@ A (more precise but less practical) tool to summarize YouTube videos so you can 
 - Overall, due to the max token size limit of any AI Chatbot (especially in free plans), larger NLP summaries as prompts will exceed the limit and will fail
 ### Use this version when the video size is short and more accuracy is required
 
+
+# 🔔  IMPORTANT UPDATE
+### UPDATE - Bard API issues
+
+Google has been messing with their internal apis, and [breaking the bardapi](https://github.com/dsdanielpark/Bard-API/issues/80).
+Thanks to the constant effort of [dsdanielpark](https://github.com/dsdanielpark) the api is fixed and maintained consistently.
+
+If you're a new installer and have never run `setup.bat` or `./setup.sh` before this, do so and after wards in a cmd/terminal run the following command, and do this everytime the script breaks
+`pip install bardapi` or `pip install --upgrade bardapi`
+
+Old users are recommended to the same to keep this script functioning.
+
+
 ## 🚀 Quickstart
 
 1. Make sure you have [Python 3.8.10](https://www.python.org/downloads/release/python-3810/) only (required for proper execution of Gensim 3.8.3).
