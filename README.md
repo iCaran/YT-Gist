@@ -4,6 +4,17 @@ A tool to summarize YouTube videos so you can skip the boring parts.
 
 https://github.com/iCaran/YT-Gist/assets/91419527/0032aa87-7069-4849-acea-599ad4f2da3d
 
+# 🔔  IMPORTANT UPDATE
+### UPDATE - Bard API issues
+
+Google has been messing with their internal apis, and [breaking the bardapi](https://github.com/dsdanielpark/Bard-API/issues/80).
+Thanks to the constant effort of [dsdanielpark](https://github.com/dsdanielpark) the api is fixed and maintained consistently.
+
+If you're a new installer and have never run `setup.bat` or `./setup.sh` before this, do so and after wards in a cmd/terminal run the following command, and do this everytime the script breaks
+`pip install bardapi` or `pip install --upgrade bardapi`
+
+Old users are recommended to the same to keep this script functioning.
+
 ## 🚀 Quickstart
 
 1. Make sure you have [Python](https://www.python.org/) installed.
