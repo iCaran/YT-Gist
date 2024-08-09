@@ -1,4 +1,7 @@
-# 🎬 Youtube Video Summarizer 
+# Archived!!!
+Since Bard has been replaced by Gemini and one can now use ChatGPT and other tools for free to summarize and chat with videos
+---
+## 🎬 Youtube Video Summarizer 
 
 A tool to summarize YouTube videos so you can skip the boring parts.
 
